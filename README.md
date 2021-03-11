@@ -4,4 +4,4 @@ This project is a replication project of two papers [Expressibility and entangli
 
 In this document, we evalue the parameterized quantum circuit, reproduce expressibility and entangeling capability of the 19 circuits, and re-confirm the relationship with the classification accuracy. 
 
-This project is supported by Qiskit mentorship program.
+This project is supported by [Qiskit mentorship program](https://github.com/qiskit-community/qiskit-advocate-mentorship-program).
