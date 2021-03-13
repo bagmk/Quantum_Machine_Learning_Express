@@ -22,7 +22,7 @@ A study of the results of Figure 4 utilizing simulation of noisy hardware
 ["Hero result"] Actually doing Figure 4 on hardware
 
 
-##Milestones
+## Milestones
 Code up circuits: Each circuit using in TH20 is composed of 2 pieces: the minimal embedding circuit (essentially, a tensor product of RX rotations), and then a parameterized quantum circuit from Sim19.
 These could be coded up using the Qiskit TwoLocal object from the circuit library, though it might be easier to code them up by hand.
 Code up data sets: We need to figure out how to generate the datasets (Figure 2); I'm wondering if scikit-learn could be used for that.
@@ -34,7 +34,7 @@ Utilize the QASM simulator to do finite-statistics (shot noise) sampling. (We ma
 Utilize the QASM simulator to do noisy HW.
 Utilize noisy HW directly. This might be more of a "hero task", and we might not get to it.
 
-##Timeframes
+## Timeframes
 In terms of dates, I think this should be feasible:
 -By late-March, the circuits and data sets are coded up.
 -By the mid-term review, we have replicated Figure 1 using the QASM simulator.
