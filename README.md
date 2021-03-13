@@ -22,18 +22,6 @@ The end result of our study should be:
 - ["Hero result"] Actually doing Figure 4 on hardware
 
 
-## Milestones
-Code up circuits: Each circuit using in TH20 is composed of 2 pieces: the minimal embedding circuit (essentially, a tensor product of RX rotations), and then a parameterized quantum circuit from Sim19.
-These could be coded up using the Qiskit TwoLocal object from the circuit library, though it might be easier to code them up by hand.
-Code up data sets: We need to figure out how to generate the datasets (Figure 2); I'm wondering if scikit-learn could be used for that.
-Figure out what aggregation function was used, and code that up.
-This might involve the Qiskit-pyTorch integration, so that we can do training more easily. See this chapter in the Qiskit Textbook.
-Do numerical experiments to evaluate accuracy of the classifier. There are 4 I'd like us to do:
-Utilize the statevector simulator for exact sampling.
-Utilize the QASM simulator to do finite-statistics (shot noise) sampling. (We may end up skipping the statevector simulator and utilizing the QASM simulator, but with different numbers of shots.)
-Utilize the QASM simulator to do noisy HW.
-Utilize noisy HW directly. This might be more of a "hero task", and we might not get to it.
-
 ## Timeframes
 In terms of dates, I think this should be feasible:
 - By late-March, the circuits and data sets are coded up.
