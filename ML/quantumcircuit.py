@@ -1,7 +1,25 @@
 from qiskit import Aer, execute
 from qiskit import QuantumRegister, ClassicalRegister, QuantumCircuit
 from math import pi, sqrt
+import numpy as np
+from collections import Counter
 
+
+def convertv(input_dict):
+    r'''run and count the most frequent value. Print with assigned label
+    
+    Inputs:
+        input_dict is the result of the counting of simualtion
+    Returns:
+        yprediction'''    
+    k = Counter(input_dict)
+    val=k.most_common(1)[0][0] 
+    list1=['00','11'];
+    if val in list1:
+        ypredit=-1
+    else:
+        ypredit=1
+    return ypredit
 
 
 def cN(lists,string):
@@ -30,13 +48,13 @@ def embed(qc,qr,datainput,n):
     Returns:
         data embeded circuit '''
     if n==2:
-        qc.rx(datainput[0],qr[0])
-        qc.rx(datainput[1],qr[1])
+        qc.rx(pi*datainput[0],qr[0])
+        qc.rx(pi*datainput[1],qr[1])
     elif n==4:
-        qc.rx(datainput[0],qr[0])
-        qc.rx(datainput[1],qr[1])   
-        qc.rx(datainput[0],qr[3])
-        qc.rx(datainput[1],qr[4])         
+        qc.rx(pi*datainput[0],qr[0])
+        qc.rx(pi*datainput[1],qr[1])   
+        qc.rx(pi*datainput[0],qr[3])
+        qc.rx(pi*datainput[1],qr[4])         
 
     qc.ry(pi/4,qr[:])
     qc.rz(pi/4,qr[:])
@@ -66,16 +84,6 @@ def circuit1(qc,qr,currentParams):
     return qc
 
 def Qrun(datainput,currentParams,nshot,nqubit):
-    r'''run the simulation can calculte the average 
-    
-    Inputs:
-        datainput is the coordinate of the 2D data input i.e. [x1,y1]
-        currentParams is the current value for the parameters
-        nshot is number of shots on simulation
-        nqubit is number of qubit
-    Returns:
-        average value of the yprediction'''
-  
     backend = Aer.get_backend('qasm_simulator')
     qr = QuantumRegister(nqubit)
     cr = ClassicalRegister(nqubit)
@@ -88,10 +96,34 @@ def Qrun(datainput,currentParams,nshot,nqubit):
     job = execute(qc, backend, shots=nshot)
     result = job.result()
     count =result.get_counts()
-    lm=-1*(cN(count,'00')+cN(count,'11'))
-    lp=1*(cN(count,'10')+cN(count,'01'))
-    predict=(lm+lp)/nshot
+    predict=convertv(count)
     return predict
+
+#def Qrun(datainput,currentParams,nshot,nqubit):
+#    r'''run the simulation can calculte the average 
+#    
+#    Inputs:
+#        datainput is the coordinate of the 2D data input i.e. [x1,y1]
+#        currentParams is the current value for the parameters
+#        nshot is number of shots on simulation
+#        nqubit is number of qubit
+#    Returns:
+#        average value of the yprediction'''
+#  
+#    backend = Aer.get_backend('qasm_simulator')
+#    qr = QuantumRegister(nqubit)
+#    cr = ClassicalRegister(nqubit)
+#    qc = QuantumCircuit(qr,cr)
+#    qc=embed(qc,qr,datainput,nqubit)
+#    qc=circuit1(qc,qr,currentParams)
+#    qc.measure(qr[:],cr[:])
+#    job = execute(qc, backend, shots=nshot)
+#    result = job.result()
+#    count =result.get_counts()
+#    lm=-1*(cN(count,'00')+cN(count,'11'))
+#    lp=1*(cN(count,'10')+cN(count,'01'))
+#    predict=(lm+lp)/nshot
+#    return predict
     
 def l1loss(predict,datalabel):
     r'''calculte the loss
@@ -101,8 +133,7 @@ def l1loss(predict,datalabel):
         datalabel actual label value from the data
     Returns:
         calculate l1 loss'''    
-    return abs(predict-2*(datalabel-0.5))
-    
+    return abs(predict-datalabel)
 
 def loss2qubit(datainput,datalabel,currentParams):    
     r'''L1 loss assmbler, run the Q circuit, and calcualte the loss for the given data.
@@ -115,10 +146,29 @@ def loss2qubit(datainput,datalabel,currentParams):
     Returns:
         calculate l1 loss'''    
     
-    nshot=1000; #number of shots on simulation
+    nshot=10000; #number of shots on simulation
     nqubit=2; # how many qubit?
     
     predict=Qrun(datainput,currentParams,nshot,nqubit)
     loss=l1loss(predict,datalabel)
    
     return loss
+
+def quick_predict(datainput,currentParams):    
+    r'''L1 loss assmbler, run the Q circuit, and calcualte the loss for the given data.
+    
+    Inputs:
+        datainput is the coordinate of the 2D data input i.e. [x1,y1]
+        currentParams is the current value for the parameters
+        datalabel actual label value from the data
+        backend is Qiskit backend        
+    Returns:
+        prediction'''    
+    
+    nshot=200; #number of shots on simulation
+    nqubit=2; # how many qubit?
+    
+    predict=Qrun(datainput,currentParams,nshot,nqubit)
+   
+    return predict
+
