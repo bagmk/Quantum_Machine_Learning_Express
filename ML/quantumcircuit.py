@@ -21,13 +21,13 @@ def embed(qc,qr,datainput,n):
     Returns:
         data embeded circuit '''
     if n==2:
-        qc.rx(0.5*pi*datainput[0],qr[0])
-        qc.rx(0.5*pi*datainput[1],qr[1])
+        qc.rx(pi*datainput[0],qr[0])
+        qc.rx(pi*datainput[1],qr[1])
     elif n==4:
-        qc.rx(0.5*pi*datainput[0],qr[0])
-        qc.rx(0.5*pi*datainput[1],qr[1])   
-        qc.rx(0.5*pi*datainput[0],qr[2])
-        qc.rx(0.5*pi*datainput[1],qr[3])         
+        qc.rx(pi*datainput[0],qr[0])
+        qc.rx(pi*datainput[1],qr[1])   
+        qc.rx(pi*datainput[0],qr[2])
+        qc.rx(pi*datainput[1],qr[3])         
 
     qc.ry(pi/4,qr[:])
     qc.rz(pi/4,qr[:])
@@ -58,6 +58,8 @@ def convertv(input_dict):
     else:
         ypredit=1
     return ypredit
+
+
 
 
 def cir_ex(qc,qr,currentParams):
@@ -172,6 +174,26 @@ def convert_qubitF(input_dict):
         ypredit=1
     return ypredit
 
+def cir_ex_4(qc,qr,currentParams):
+    r'''example circuit for testing two-qubit gate, two qubit version of circuit3 
+    
+    Inputs:
+        qc is total quantum circuit 
+        qr is the quantum cricuit where the main work is done
+        currentParams is the current value for the parameters
+    Returns:
+        print example circuit for two-qubit '''
+    
+    count=0;
+
+    for i in range(4):
+        qc.rx(currentParams[count],qr[i])
+        count=count+1
+    for i in range(4):
+        qc.rz(currentParams[count],qr[i])
+        count=count+1
+    
+    return qc
 
 
 def Qrun_qubitF(datainput,currentParams,nshot,nqubit,circuit):
@@ -181,7 +203,7 @@ def Qrun_qubitF(datainput,currentParams,nshot,nqubit,circuit):
     qc = QuantumCircuit(qr,cr)
 
     qc=embed(qc,qr,datainput,nqubit)
-    qc=list_of_circuit[circuit[0]](qc,qr,currentParams,circuit[1],0)
+    qc=cir_ex_4(qc,qr,currentParams)
 
     qc.measure(qr[:],cr[:])
     job = execute(qc, backend, shots=nshot)
