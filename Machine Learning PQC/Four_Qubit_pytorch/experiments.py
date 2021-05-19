@@ -1,31 +1,54 @@
 r'''The purpose of this script is to do our QML experiments.'''
 
 # Zeroth bit: code imports
+import torch
 import numpy as np
 from torch import Tensor
 from torch.nn import MSELoss
+import torch.optim as optim
 from torch.optim import SGD,Adam 
 from pandas.core.common import flatten
 
+
+from qiskit.circuit import Parameter
 from qiskit  import Aer, QuantumCircuit
 from qiskit.utils import QuantumInstance
 from qiskit_machine_learning.neural_networks import CircuitQNN
 from qiskit_machine_learning.connectors import TorchConnector
 
+
+import sys
+sys.path.append('../../Pyfiles')
+from circuits_n1 import *
+
+from helpers import parity
+
 # First bit: Creating the circuits
 
 def make_embedding_circuit():
     r'''Makes the embedding circuit.'''
-    
+    feature_map = QuantumCircuit(4, name='Embed')
+    feature_map.rx(Parameter('x[0]'),0)
+    feature_map.rx(Parameter('x[1]'),1)
+    feature_map.rx(Parameter('x[2]'),2)
+    feature_map.rx(Parameter('x[3]'),3)
+
+    for j in [0, 2]:
+        feature_map.ry(np.pi/4,j)
+        feature_map.ry(np.pi/4,j+1)
+        feature_map.rz(np.pi/4,j)
+        feature_map.rz(np.pi/4,j+1)
     # Remove this word once you've filled in the code.
-    pass
+    return feature_map
 
 def make_classifer_circuit(ID):
     r'''A helper function which makes the classfier circuits.
         Given an ID, it returns the PQC.'''
-
+    param_y=[(Parameter('θ'+str(i))) for i in range(12)]
+    ansatz = QuantumCircuit(4, name='PQC')
+    ansatz=globals()["circuit"+"{0}".format(ID)](ansatz,param_y,1,0)
     # Remove this word once you've filled in the code.
-    pass
+    return ansatz
 
 # Second bit: Loading data & generating training/validation/testing splits
 def load_data(dataSetID):
@@ -117,7 +140,7 @@ def train_model(feature_map, ansatz, epochs, learning_rate, train_X, train_y, qi
     qc = QuantumCircuit(ansatz.width())
     qc.append(feature_map, range(ansatz.width()))
     qc.append(ansatz, range(ansatz.width()))
-    
+    output_shape = 2
     qnn = CircuitQNN(qc, input_params=feature_map.parameters, weight_params=ansatz.parameters, 
                           interpret=parity, output_shape=output_shape, quantum_instance=qi)
 
@@ -132,8 +155,8 @@ def train_model(feature_map, ansatz, epochs, learning_rate, train_X, train_y, qi
 
     # Set model to training mode
     model.train()   
+    print("Learning Rate (", learning_rate,") is intialized")
 
-    print("Learning Rate is ", learning_rate)
     for epoch in range(epochs):
         optimizer.zero_grad()        # initialize gradient
         loss = 0.0                                             # initialize loss    
@@ -143,9 +166,8 @@ def train_model(feature_map, ansatz, epochs, learning_rate, train_X, train_y, qi
             targets = targets.to(torch.float32)
             loss += f_loss(output, targets) 
         loss.backward()                              # backward pass
-        print("__Loss is ",loss.item())                           # print loss
 
         # run optimizer
         optimizer.step() 
-
+    print("Learning Rate (", learning_rate,") is done")
     return model
