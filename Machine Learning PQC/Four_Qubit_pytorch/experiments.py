@@ -16,6 +16,7 @@ from qiskit.utils import QuantumInstance
 from qiskit_machine_learning.neural_networks import CircuitQNN
 from qiskit_machine_learning.connectors import TorchConnector
 
+from scipy import linalg
 
 import sys
 sys.path.append('../../Pyfiles')
