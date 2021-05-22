@@ -45,7 +45,7 @@ def make_embedding_circuit():
 def make_classifer_circuit(ID):
     r'''A helper function which makes the classfier circuits.
         Given an ID, it returns the PQC.'''
-    param_y=[(Parameter('θ'+str(i))) for i in range(12)]
+    param_y=[(Parameter('θ'+str(i))) for i in range(40)]
     ansatz = QuantumCircuit(4, name='PQC')
     ansatz=globals()["circuit"+"{0}".format(ID)](ansatz,param_y,1,0)
     # Remove this word once you've filled in the code.
@@ -156,7 +156,7 @@ def train_model(feature_map, ansatz, epochs, learning_rate, train_X, train_y, qi
 
     # Set model to training mode
     model.train()   
-    print("Learning Rate (", learning_rate,") is intialized")
+    print("__Learning Rate (", learning_rate,") is intialized")
 
     for epoch in range(epochs):
         optimizer.zero_grad()        # initialize gradient
@@ -170,5 +170,5 @@ def train_model(feature_map, ansatz, epochs, learning_rate, train_X, train_y, qi
 
         # run optimizer
         optimizer.step() 
-    print("Learning Rate (", learning_rate,") is done")
+    print("__Learning Rate (", learning_rate,") is done")
     return model
