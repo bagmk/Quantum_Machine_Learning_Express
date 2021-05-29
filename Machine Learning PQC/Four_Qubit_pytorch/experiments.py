@@ -159,10 +159,10 @@ def train_model(feature_map, ansatz, epochs, learning_rate, train_X, train_y, qi
     print("__Learning Rate (", learning_rate,") is intialized")
 
     for epoch in range(epochs):
-        optimizer.zero_grad()        # initialize gradient
-        loss = 0.0                                             # initialize loss    
-        for x, y_target in zip(train_X, train_y):                        # evaluate batch loss
-            output = model(Tensor(x)).reshape(1, 2)           # forward pass
+        optimizer.zero_grad()                        # initialize gradient
+        loss = 0.0                                   # initialize loss    
+        for x, y_target in zip(train_X, train_y):    # evaluate batch loss
+            output = model(Tensor(x)).reshape(1, 2)  # forward pass
             targets=Tensor([y_target]).long()
             targets = targets.to(torch.float32)
             loss += f_loss(output, targets) 
