@@ -16,14 +16,18 @@ The key ideas in TH20 are:
 
 The result of our study is:
 
-- A replication of Figure 4 of TH20 using the statevector simulator
-- A study of the results of Figure 4 in the presents of finite-sampling (shot) noise
-- A study of the results of Figure 4 utilizing simulation of noisy hardware
-- ["Hero result"] Actually doing Figure 4 on hardware
+- A replication of Figure 1 of Sim19 using the statevector simulator
+- A replication of Figure 3 of Sim19 using the statevector simulator
+- A replication of peice of machine learning accuracy of TH20 using pytorch connector
+- Manually coded optimization algorithm
 
 
 ## Repository Organization
 The repository should contain a few different pieces:
-- A directory holding the data sets
-- A file containing the circuits
-- A directory for Jupyter notebooks
+- the data sets (dataset)
+- Replication of Expressivility from Sim19 (Expressibility and entangling capability of parameterized quantum circuits)
+- Replication of Machine Learning Accuracy from Th20 (Machine Learning PQC)
+- Optimization code/circuits/and others (Pyfiles)
+
+
+#To run the code
