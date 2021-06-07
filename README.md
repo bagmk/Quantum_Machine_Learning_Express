@@ -14,19 +14,13 @@ The key ideas in TH20 are:
 - Utilizing 9 particular datasets on which to evaluate the classifier (Figure 2).
 - TH20 utilizes the data already present in Sim19 regarding the expressibility and entangling capability of PQCs. We can do the same here.
 
-The end result of our study should be:
+The result of our study is:
 
 - A replication of Figure 4 of TH20 using the statevector simulator
 - A study of the results of Figure 4 in the presents of finite-sampling (shot) noise
 - A study of the results of Figure 4 utilizing simulation of noisy hardware
 - ["Hero result"] Actually doing Figure 4 on hardware
 
-
-## Timeframes
-In terms of dates, I think this should be feasible:
-- By late-March, the circuits and data sets are coded up.
-- By the mid-term review, we have replicated Figure 1 using the QASM simulator.
-- By mid-May, we have utilized noisy HW directly.
 
 ## Repository Organization
 The repository should contain a few different pieces:
