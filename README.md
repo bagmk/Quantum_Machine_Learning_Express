@@ -31,3 +31,8 @@ The repository should contain a few different pieces:
 
 
 # To run the code
+
+- Please first install pytorch from https://pytorch.org/
+- Install Qiskit https://qiskit.org/documentation/getting_started.html
+- Install Qiskit Machin learning module 
+
