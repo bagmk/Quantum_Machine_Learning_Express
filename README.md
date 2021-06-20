@@ -5,7 +5,7 @@ This project is a replication study of two papers [Expressibility and entangling
 We refer to the first and second paper as Th20 and Sim19, respectively. TH20 studies the relationship between the expressibility of a parameterized quantum circuit (PQC) and the accuracy attained by a simple quantum classifier based on that circuit. Sim19 defined expressibility and entangling capability of parameterized quantum circuits for hybrid quantum-classical algorithms.
 
 
-(Suummary of Project)[https://www.youtube.com/watch?v=Igxr1HLhdrM&t=1s]
+[Suummary of Project](https://www.youtube.com/watch?v=Igxr1HLhdrM&t=1s)
 
 The key ideas in TH20 are:
 
