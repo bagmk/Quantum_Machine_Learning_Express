@@ -1,11 +1,11 @@
-## Enhance Qiskit papers database & replication study
+## Enhance Qiskit papers database & replication study [Youtube Link](https://www.youtube.com/watch?v=Igxr1HLhdrM&t=1s)
 
 This project is a replication study of two papers [Expressibility and entangling capability of parameterized quantum circuits for hybrid quantum-classical algorithms, arXiv:1905.10876](https://arxiv.org/abs/1905.10876) and [Evaluation of Parameterized Quantum Circuits: on the relation between classification accuracy, expressibility and entangling capability, arXiv:2003.09887](https://arxiv.org/abs/2003.09887) using Qiskit environment. 
 
 We refer to the first and second paper as Th20 and Sim19, respectively. TH20 studies the relationship between the expressibility of a parameterized quantum circuit (PQC) and the accuracy attained by a simple quantum classifier based on that circuit. Sim19 defined expressibility and entangling capability of parameterized quantum circuits for hybrid quantum-classical algorithms.
 
 
-# Youtube Link for [Suummary of Project](https://www.youtube.com/watch?v=Igxr1HLhdrM&t=1s)
+ 
 
 The key ideas in TH20 are:
 
