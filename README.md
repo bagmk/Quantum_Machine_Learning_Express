@@ -7,6 +7,7 @@ We refer to the first and second paper as Th20 and Sim19, respectively. TH20 stu
 [![DOI](https://zenodo.org/badge/344628546.svg)](https://zenodo.org/badge/latestdoi/344628546)
  
 Interested in contribition? message me on [Linkedin](https://www.linkedin.com/in/saesun-kim/)
+
 The key ideas in TH20 are:
 
 - Defining a minimal embedding for 2-dimensional data (Figure 3) using 4 qubits
